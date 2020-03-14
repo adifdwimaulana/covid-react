@@ -1,9 +1,29 @@
-.header {
+.App {
   margin: 0;
   padding: 0;
   width: 100%;
+  overflow-x: hidden;
 }
 
-.title {
-  text-align: center;
+.site-title {
+  padding: 0.8rem 0;
+}
+
+.card-top-area {
+  display: inline-flex;
+  margin: 1rem auto;
+}
+
+.card-top-area .card {
+    margin: 0 1rem;
+    width: 20rem;
+    text-align: center;
+}
+
+.card-body .value {
+  margin-top: 1.8rem;
+}
+
+.last-update {
+  margin: 1.5rem auto;
 }
