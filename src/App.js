@@ -1,6 +1,7 @@
 import React from 'react';
 import { Header } from './components/Header';
 import Information from './components/Information';
+import Country from './components/Country';
 import './Bootstrap.css'
 import './App.css';
 import Axios from 'axios';
@@ -13,7 +14,8 @@ class App extends React.Component {
       global: [],
       countries: [],
       country: '',
-      showCountry: false
+      showCountry: false,
+      countryChoice: ''
     }
   }
 
@@ -34,11 +36,27 @@ class App extends React.Component {
   handleChange = (event) => {
     // console.log(event.target.value)
     this.setState({ country: event.target.value })
+    const url = 'https://covid19.mathdro.id/api/countries/'
+    const country = event.target.value
+
+    const newUrl = url.concat(country)
+
+    Axios.get(newUrl)
+      .then((response) => {
+        this.setState({ countryChoice: response.data })
+        // console.log(response.data)
+      })
+
+    if (event.target.value != '') {
+      this.setState({ showCountry: true })
+    } else {
+      this.setState({ showCountry: false })
+    }
   }
 
   render() {
 
-    const { global, country, countries, showCountry } = this.state;
+    const { global, country, countries, showCountry, countryChoice } = this.state;
     if (global.length == 0 && countries.length == 0) {
       return null;
     }
@@ -47,14 +65,17 @@ class App extends React.Component {
 
     for (let [key, value] of Object.entries(countries)) {
       // console.log(`${key}: ${value}`)
-      chooseCountry.push(<option value={value} key={key}>{key}</option>)
+      chooseCountry.push(<option value={key} key={key}>{key}</option>)
     }
-    console.log(country)
+
+    // console.log(country)
+    // console.log(showCountry)
 
     return (
       <div className="App">
         <div className="container">
           <Header />
+          <Information global={global} />
           <select
             className="select-country"
             onChange={this.handleChange}
@@ -62,13 +83,14 @@ class App extends React.Component {
             <option value=''>Global</option>
             {chooseCountry}
           </select>
-          <Information global={global} />
+          {showCountry ? <Country country={country} countryChoice={countryChoice} /> : null}
           <p
             className="last-update"
             style={{
               textAlign: 'center',
               marginTop: 30,
             }}
+
           >"Last Update at: {global.lastUpdate}" </p>
         </div>
       </div>
