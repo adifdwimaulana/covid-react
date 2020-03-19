@@ -4,6 +4,7 @@ import Information from './components/Information';
 import Country from './components/Country';
 import './Bootstrap.css'
 import './App.css';
+import propTypes from 'prop-types';
 import Axios from 'axios';
 
 class App extends React.Component {
@@ -96,6 +97,15 @@ class App extends React.Component {
       </div>
     )
   }
+}
+
+Information.propTypes = {
+  global: propTypes.object
+}
+
+Country.propTypes = {
+  country: propTypes.string,
+  countryChoice: propTypes.object
 }
 
 
