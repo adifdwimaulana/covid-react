@@ -1,6 +1,7 @@
 import React from 'react'
 
-const Country = ({ country, countryChoice }) => {
+const Country = (props) => {
+    const { country, countryChoice } = props
     if (countryChoice.length == 0) {
         return null
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Information = ({ global }) => {
-    const { confirmed, recovered, deaths, lastUpdate } = global
+const Information = (props) => {
+    const { confirmed, recovered, deaths } = props.global
     // console.log(country)
     // console.log(countryChoice)
     return (
